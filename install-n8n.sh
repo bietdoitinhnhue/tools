@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ubuntu Server Manager Installer
-# Quick install: curl -sSL https://raw.githubusercontent.com/yourusername/server-manager/main/install.sh | sudo bash
+# Quick install: curl -sSL https://raw.githubusercontent.com/bietdoitinhnhue/server-manager/main/install-n8n.sh | sudo bash
 
 set -e
 

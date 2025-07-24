@@ -17,6 +17,22 @@
   <meta name="twitter:image" content="https://raw.githubusercontent.com/bietdoitinhnhue/server-manager/main/Biet-doi-tinh-nhue.png">
   <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
   <style>
+    .banner-wrap {
+  text-align: center;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+}
+.banner-wrap img {
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px #0001;
+  display: block;
+  /* Thêm chiều rộng tối đa nếu muốn không quá to ở desktop */
+  max-width: 600px;
+}
     body { font-family: Arial, sans-serif; background: #f7f8fa; padding: 32px; max-width: 520px; margin: auto;}
     h1 { text-align: center; color: #3056d3; font-size:2.1rem; white-space:nowrap; margin-bottom: 24px;}
     input, textarea, select { width: 100%; padding: 8px; margin: 10px 0; border-radius: 6px; border: 1px solid #bbb;}
@@ -168,61 +184,5 @@
       <img src="https://raw.githubusercontent.com/bietdoitinhnhue/server-manager/main/Drake-nguyen-contact.png" alt="Liên hệ Biệt đội tinh nhuệ">
     </div>
   </div>
-
-  <script>
-    let qr = null;
-    let logoDataUrl = null;
-    // Sự kiện đổi màu nền: chọn trong suốt thì disable input color
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('transparentBG').addEventListener('change', function() {
-        let bgcolor = document.getElementById('bgcolor');
-        if(this.checked) {
-          bgcolor.disabled = true;
-        } else {
-          bgcolor.disabled = false;
-        }
-      });
-      // Xử lý upload logo file
-      document.getElementById('logoUpload').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file && file.type === "image/png") {
-          const reader = new FileReader();
-          reader.onload = function(event) {
-            logoDataUrl = event.target.result;
-            document.getElementById('logoName').innerText = file.name;
-          };
-          reader.readAsDataURL(file);
-        } else {
-          logoDataUrl = null;
-          document.getElementById('logoName').innerText = "";
-        }
-      });
-    });
-
-    function genQR() {
-      const text = document.getElementById('qrinput').value.trim();
-      const color = document.getElementById('qrcolor').value;
-      const bgcolor = document.getElementById('bgcolor').value;
-      const transparent = document.getElementById('transparentBG').checked;
-      const dotstyle = document.getElementById('dotstyle').value;
-      let bgOpt = transparent ? 'rgba(0,0,0,0)' : bgcolor;
-      if (!text) { alert('Chưa nhập nội dung mà đòi tạo à con dzời!'); return; }
-      document.getElementById('qrbox').innerHTML = '';
-
-      qr = new QRCodeStyling({
-        width: 320,
-        height: 320,
-        data: text,
-        dotsOptions: { color: color, type: dotstyle },
-        backgroundOptions: { color: bgOpt },
-        image: logoDataUrl || undefined,
-        imageOptions: { crossOrigin: "anonymous", margin: 8 }
-      });
-      qr.append(document.getElementById('qrbox'));
-    }
-    function downloadQR() {
-      if (qr) qr.download({ name: "qr-code", extension: "png" });
-    }
-  </script>
 </body>
 </html>

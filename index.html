@@ -2,31 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Mời bạn tạo QRcode - FREE</title>
+  <title>Tạo QR Đẹp - Team QR Generator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; padding: 40px; max-width: 480px; margin: auto; background: #f5f7fa; }
-    h1 { text-align: center; color: #3056d3; }
-    input, textarea { width: 100%; padding: 10px; margin: 16px 0; border-radius: 6px; border: 1px solid #bbb;}
-    button { padding: 10px 24px; border: none; border-radius: 6px; background: #3056d3; color: white; font-size: 16px;}
+    body { font-family: Arial, sans-serif; background: #f7f8fa; padding: 32px; max-width: 500px; margin: auto;}
+    h1 { text-align: center; color: #3056d3;}
+    input, textarea { width: 100%; padding: 8px; margin: 10px 0; border-radius: 6px; border: 1px solid #bbb;}
+    button { padding: 10px 24px; border: none; border-radius: 6px; background: #3056d3; color: white; font-size: 16px; cursor:pointer;}
     .qr-box {text-align:center; margin: 24px 0;}
-    img { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0002;}
+    label {font-weight: bold;}
+    #qrbox canvas, #qrbox img { border-radius: 12px; box-shadow: 0 2px 8px #0002;}
+    .guide {
+      background: #e5f1fb;
+      color: #234e7e;
+      border-radius: 10px;
+      padding: 20px 18px;
+      margin-top: 32px;
+      font-size: 15px;
+      box-shadow: 0 1px 8px #0001;
+    }
+    .guide ul {margin: 10px 0 10px 20px;}
+    .guide code {background: #d6eaff; padding: 2px 5px; border-radius: 4px;}
   </style>
 </head>
 <body>
-  <h1>Team QR Code Generator</h1>
-  <label for="qrinput"><b>Nhập link hoặc văn bản muốn tạo QR:</b></label>
-  <label for="qrinput"><b>Đây là link tạo QR free và tồn tại mãi mãi nên thoải mái sử dụng nhé!!!:</b></label>
-  <textarea id="qrinput" rows="3" placeholder="Dán link hoặc nội dung..."></textarea>
-  <button onclick="genQR()">Generate QR</button>
+  <h1>Tạo QR Đẹp</h1>
+  <label>Nội dung hoặc link muốn tạo QR:</label>
+  <textarea id="qrinput" rows="2" placeholder="Nhập nội dung..."></textarea>
+
+  <label>Màu QR:</label>
+  <input type="color" id="qrcolor" value="#3056d3">
+
+  <label>Màu nền:</label>
+  <input type="color" id="bgcolor" value="#ffffff">
+
+  <label>Logo (link PNG nhỏ, tuỳ chọn):</label>
+  <input type="text" id="logo" placeholder="Dán link PNG logo nếu muốn">
+
+  <label>Bo góc QR:</label>
+  <select id="dotstyle">
+    <option value="rounded">Bo tròn (Rounded)</option>
+    <option value="dots">Chấm (Dots)</option>
+    <option value="square">Vuông (Square)</option>
+    <option value="classy">Classy</option>
+    <option value="classy-rounded">Classy Rounded</option>
+    <option value="extra-rounded">Bo cực tròn (Extra Rounded)</option>
+  </select>
+
+  <button onclick="genQR()">Tạo QR</button>
   <div class="qr-box" id="qrbox"></div>
+  <button onclick="downloadQR()">Tải QR về máy</button>
+
+  <!-- Hướng dẫn sử dụng -->
+  <div class="guide">
+    <b>Hướng dẫn sử dụng QR Generator:</b>
+    <ul>
+      <li>Nhập <b>nội dung</b> hoặc <b>link</b> bạn muốn mã hoá QR vào ô trên cùng.</li>
+      <li>Chọn <b>màu QR</b> và <b>màu nền</b> tuỳ thích.</li>
+      <li>Nếu muốn gắn <b>logo</b> cho QR, dán link PNG vào ô Logo (khuyến nghị logo nền trong suốt, kích thước nhỏ &lt;100px).</li>
+      <li>Chọn kiểu <b>bo góc</b> QR cho đẹp, hiện đại.</li>
+      <li>Bấm <b>Tạo QR</b> để xem kết quả ngay bên dưới.</li>
+      <li>Bấm <b>Tải QR về máy</b> để lưu file PNG về thiết bị.</li>
+    </ul>
+    <b>Lưu ý:</b>
+    <ul>
+      <li>QR code này là <b>tĩnh</b>, miễn phí, không hết hạn.</li>
+      <li>Bạn có thể dùng trên mọi thiết bị, in ấn thoải mái.</li>
+      <li>Nếu cần hỗ trợ custom template/logo, vui lòng liên hệ Admin.</li>
+    </ul>
+  </div>
+
   <script>
+    let qr = null;
     function genQR() {
-      let text = document.getElementById('qrinput').value.trim();
-      if (!text) { alert('Vui lòng nhập nội dung hoặc link!'); return; }
-      let url = 'https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=' + encodeURIComponent(text);
-      document.getElementById('qrbox').innerHTML = `<div><img src="${url}" width="200"><br>
-        <a href="${url}" target="_blank" download="qr.png">Tải QR về máy</a></div>`;
+      const text = document.getElementById('qrinput').value.trim();
+      const color = document.getElementById('qrcolor').value;
+      const bgcolor = document.getElementById('bgcolor').value;
+      const logo = document.getElementById('logo').value.trim();
+      const dotstyle = document.getElementById('dotstyle').value;
+      if (!text) { alert('Vui lòng nhập nội dung!'); return; }
+      if (qr) qr.clear();
+      qr = new QRCodeStyling({
+        width: 320,
+        height: 320,
+        data: text,
+        dotsOptions: { color: color, type: dotstyle },
+        backgroundOptions: { color: bgcolor },
+        image: logo ? logo : undefined,
+        imageOptions: { crossOrigin: "anonymous", margin: 8 }
+      });
+      document.getElementById('qrbox').innerHTML = '';
+      qr.append(document.getElementById('qrbox'));
+    }
+    function downloadQR() {
+      if (qr) qr.download({ name: "qr-code", extension: "png" });
     }
   </script>
 </body>

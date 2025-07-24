@@ -2,37 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <head>
-  <meta charset="UTF-8">
-    <!-- Banner biệt đội tinh nhuệ -->
-<div style="text-align:center;">
-  <img src="https://raw.githubusercontent.com/bietdoitinhnhue/server-manager/refs/heads/main/Biet-doi-tinh-nhue.png" 
-       alt="Biệt Đội Tinh Nhuệ Banner"
-       style="max-width:100%;width:100%%;margin-bottom:16px;border-radius:16px;box-shadow:0 4px 16px #0001;">
-</div>
   <title>QR không hết hạn | QR Generator miễn phí by Biệt Đội Tinh Nhuệ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- SEO + Social Share meta -->
   <meta name="description" content="Tạo QR code miễn phí, đẹp, nhiều tuỳ chọn màu, bo góc, thêm logo và tải file PNG chất lượng cao. Không hết hạn, không quảng cáo!">
   <meta property="og:title" content="Tạo QR Đẹp | QR Generator miễn phí by Biệt Đội Tinh Nhuệ">
   <meta property="og:description" content="Tạo QR code miễn phí, đẹp, nhiều tuỳ chọn màu, bo góc, thêm logo và tải file PNG chất lượng cao. Không hết hạn, không quảng cáo!">
-  <meta property="og:image" content="https://raw.githubusercontent.com/bietdoitinhnhue/server-manager/refs/heads/main/Biet-doi-tinh-nhue.png">
+  <meta property="og:image" content="https://raw.githubusercontent.com/bietdoitinhnhue/server-manager/main/Biet-doi-tinh-nhue.png">
   <meta property="og:url" content="https://server-manager-rho.vercel.app/">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="QR không hết hạn | QR Generator miễn phí by Biệt Đội Tinh Nhuệ">
   <meta name="twitter:description" content="Tạo QR code miễn phí, tuỳ chọn màu sắc, bo góc, thêm logo PNG, tải file chất lượng cao. Không hết hạn, không quảng cáo!">
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/bietdoitinhnhue/server-manager/refs/heads/main/Biet-doi-tinh-nhue.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/bietdoitinhnhue/server-manager/main/Biet-doi-tinh-nhue.png">
   <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
   <style>
     body { font-family: Arial, sans-serif; background: #f7f8fa; padding: 32px; max-width: 520px; margin: auto;}
-    h1 { text-align: center; color: #3056d3; }
+    h1 { text-align: center; color: #3056d3; font-size:2.1rem; white-space:nowrap; margin-bottom: 24px;}
     input, textarea, select { width: 100%; padding: 8px; margin: 10px 0; border-radius: 6px; border: 1px solid #bbb;}
-    button { padding: 10px 24px; border: none; border-radius: 6px; background: #3056d3; color: white; font-size: 16px; cursor:pointer;}
-    .qr-box {text-align:center; margin: 24px 0;}
     label {font-weight: bold;}
+    .row { display: flex; align-items: center; gap: 12px; }
+    .row input[type="color"] { width: 50px; height: 36px; padding: 2px;}
+    .row label {margin-bottom:0;}
+    .qr-box {text-align:center; margin: 24px 0;}
     #qrbox canvas, #qrbox img { border-radius: 12px; box-shadow: 0 2px 8px #0002;}
+    .btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin: 28px 0 12px 0;
+    }
+    .btn-generate {
+      padding: 12px 36px;
+      background: #ff9800;
+      color: #fff;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #0001;
+      transition: background 0.18s;
+    }
+    .btn-generate:hover { background: #fb8c00; }
+    .btn-download {
+      padding: 12px 36px;
+      background: #4caf50;
+      color: #fff;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #0001;
+      transition: background 0.18s;
+    }
+    .btn-download:hover { background: #388e3c; }
     .guide {
       background: #e5f1fb;
       color: #234e7e;
@@ -44,12 +69,7 @@
     }
     .guide ul {margin: 10px 0 10px 20px;}
     .guide code {background: #d6eaff; padding: 2px 5px; border-radius: 4px;}
-    .row { display: flex; align-items: center; gap: 12px; }
-    .row input[type="color"] { width: 50px; height: 36px; padding: 2px;}
-    .row label {margin-bottom:0;}
-    .contact-footer {
-      margin-top:44px; padding-bottom:28px;
-    }
+    .contact-footer { margin-top:44px; padding-bottom:28px; }
     .contact-footer .contact-desc {
       text-align:center; font-size:17px; color:#234e7e; margin-bottom:8px;
     }
@@ -61,6 +81,14 @@
       width: 100%; max-width: 950px; border-radius:16px;
       box-shadow: 0 2px 18px #0002;
     }
+    .banner-wrap {
+      text-align:center;
+      margin-bottom: 12px;
+    }
+    .banner-wrap img {
+      max-width:100%; width:100%; margin-bottom:16px;
+      border-radius:16px; box-shadow:0 4px 16px #0001;
+    }
     @media (max-width: 700px) {
       body { padding: 12px; }
       .contact-footer img { max-width: 100%; }
@@ -68,7 +96,13 @@
   </style>
 </head>
 <body>
-  <h1 style="font-size:2.1rem;white-space:nowrap;">TẠO QR MIỄN PHÍ - KHÔNG HẾT HẠN</h1>
+  <!-- Banner biệt đội tinh nhuệ -->
+  <div class="banner-wrap">
+    <img src="https://raw.githubusercontent.com/bietdoitinhnhue/server-manager/main/Biet-doi-tinh-nhue.png" 
+         alt="Biệt Đội Tinh Nhuệ Banner">
+  </div>
+
+  <h1>TẠO QR MIỄN PHÍ - KHÔNG HẾT HẠN</h1>
 
   <label>Nội dung hoặc link muốn tạo QR:</label>
   <textarea id="qrinput" rows="2" placeholder="Nhập nội dung..."></textarea>
@@ -100,9 +134,12 @@
     <option value="extra-rounded">Bo cực tròn (Extra Rounded)</option>
   </select>
 
-  <button onclick="genQR()">Tạo QR</button>
+  <div class="btn-row">
+    <button class="btn-generate" onclick="genQR()">Tạo QR</button>
+    <button class="btn-download" onclick="downloadQR()">Tải QR về máy</button>
+  </div>
+
   <div class="qr-box" id="qrbox"></div>
-  <button onclick="downloadQR()">Tải QR về máy</button>
 
   <div class="guide">
     <b>Hướng dẫn sử dụng QR Generator:</b>
@@ -118,7 +155,7 @@
     <ul>
       <li>QR code này là <b>tĩnh</b>, miễn phí, không hết hạn.</li>
       <li>Bạn có thể dùng trên mọi thiết bị, in ấn thoải mái.</li>
-      <li>Nếu cần hỗ trợ custom <b> Workflow n8n </b>b>, vui lòng liên hệ .</li>
+      <li>Nếu cần hỗ trợ custom <b>template/logo/workflow n8n</b>, vui lòng liên hệ Admin.</li>
     </ul>
   </div>
   <!-- Contact QR Footer -->
@@ -128,7 +165,7 @@
       <span>Quét QR code và liên hệ 👇</span></b>
     </div>
     <div class="contact-img-wrap">
-      <img src="https://raw.githubusercontent.com/bietdoitinhnhue/server-manager/e9bf7a3ebba9a4b04fd8024ea79d93a29a50bfff/Drake-nguyen-contact.png" alt="Liên hệ Biệt đội tinh nhuệ">
+      <img src="https://raw.githubusercontent.com/bietdoitinhnhue/server-manager/main/Drake-nguyen-contact.png" alt="Liên hệ Biệt đội tinh nhuệ">
     </div>
   </div>
 

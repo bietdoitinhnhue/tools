@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; background: #f7f8fa; padding: 32px; max-width: 500px; margin: auto;}
-    h1 { text-align: center; color: #3056d3;}
-    input, textarea { width: 100%; padding: 8px; margin: 10px 0; border-radius: 6px; border: 1px solid #bbb;}
+    body { font-family: Arial, sans-serif; background: #f7f8fa; padding: 32px; max-width: 520px; margin: auto;}
+    h1 { text-align: center; color: #3056d3; }
+    input, textarea, select { width: 100%; padding: 8px; margin: 10px 0; border-radius: 6px; border: 1px solid #bbb;}
     button { padding: 10px 24px; border: none; border-radius: 6px; background: #3056d3; color: white; font-size: 16px; cursor:pointer;}
     .qr-box {text-align:center; margin: 24px 0;}
     label {font-weight: bold;}
@@ -24,6 +24,9 @@
     }
     .guide ul {margin: 10px 0 10px 20px;}
     .guide code {background: #d6eaff; padding: 2px 5px; border-radius: 4px;}
+    .row { display: flex; align-items: center; gap: 12px; }
+    .row input[type="color"] { width: 50px; height: 36px; padding: 2px;}
+    .row label {margin-bottom:0;}
   </style>
 </head>
 <body>
@@ -31,14 +34,22 @@
   <label>Nội dung hoặc link muốn tạo QR:</label>
   <textarea id="qrinput" rows="2" placeholder="Nhập nội dung..."></textarea>
 
-  <label>Màu QR:</label>
-  <input type="color" id="qrcolor" value="#3056d3">
+  <div class="row">
+    <label for="qrcolor">Màu QR:</label>
+    <input type="color" id="qrcolor" value="#3056d3">
+  </div>
 
-  <label>Màu nền:</label>
-  <input type="color" id="bgcolor" value="#ffffff">
+  <div class="row">
+    <label for="bgcolor">Màu nền:</label>
+    <input type="color" id="bgcolor" value="#ffffff">
+    <label style="font-weight:normal;">
+      <input type="checkbox" id="transparentBG" style="width:auto; margin-right:4px;"> Trong suốt
+    </label>
+  </div>
 
-  <label>Logo (link PNG nhỏ, tuỳ chọn):</label>
-  <input type="text" id="logo" placeholder="Dán link PNG logo nếu muốn">
+  <label>Logo (PNG nhỏ, tuỳ chọn):</label>
+  <input type="file" id="logoUpload" accept="image/png">
+  <div id="logoName" style="color:#3056d3;font-size:13px;margin-bottom:10px;"></div>
 
   <label>Bo góc QR:</label>
   <select id="dotstyle">
@@ -54,13 +65,12 @@
   <div class="qr-box" id="qrbox"></div>
   <button onclick="downloadQR()">Tải QR về máy</button>
 
-  <!-- Hướng dẫn sử dụng -->
   <div class="guide">
     <b>Hướng dẫn sử dụng QR Generator:</b>
     <ul>
       <li>Nhập <b>nội dung</b> hoặc <b>link</b> bạn muốn mã hoá QR vào ô trên cùng.</li>
-      <li>Chọn <b>màu QR</b> và <b>màu nền</b> tuỳ thích.</li>
-      <li>Nếu muốn gắn <b>logo</b> cho QR, dán link PNG vào ô Logo (khuyến nghị logo nền trong suốt, kích thước nhỏ &lt;100px).</li>
+      <li>Chọn <b>màu QR</b> và <b>màu nền</b> (bấm "Trong suốt" nếu không muốn nền).</li>
+      <li>Nếu muốn gắn <b>logo</b> cho QR, <b>upload file PNG</b> nhỏ (tối ưu &lt;100px).</li>
       <li>Chọn kiểu <b>bo góc</b> QR cho đẹp, hiện đại.</li>
       <li>Bấm <b>Tạo QR</b> để xem kết quả ngay bên dưới.</li>
       <li>Bấm <b>Tải QR về máy</b> để lưu file PNG về thiết bị.</li>
@@ -75,24 +85,54 @@
 
   <script>
     let qr = null;
+    let logoDataUrl = null;
+
+    // Sự kiện đổi màu nền: chọn trong suốt thì disable input color
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('transparentBG').addEventListener('change', function() {
+        let bgcolor = document.getElementById('bgcolor');
+        if(this.checked) {
+          bgcolor.disabled = true;
+        } else {
+          bgcolor.disabled = false;
+        }
+      });
+      // Xử lý upload logo file
+      document.getElementById('logoUpload').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file && file.type === "image/png") {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            logoDataUrl = event.target.result;
+            document.getElementById('logoName').innerText = file.name;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          logoDataUrl = null;
+          document.getElementById('logoName').innerText = "";
+        }
+      });
+    });
+
     function genQR() {
       const text = document.getElementById('qrinput').value.trim();
       const color = document.getElementById('qrcolor').value;
       const bgcolor = document.getElementById('bgcolor').value;
-      const logo = document.getElementById('logo').value.trim();
+      const transparent = document.getElementById('transparentBG').checked;
       const dotstyle = document.getElementById('dotstyle').value;
+      let bgOpt = transparent ? 'rgba(0,0,0,0)' : bgcolor;
       if (!text) { alert('Vui lòng nhập nội dung!'); return; }
-      if (qr) qr.clear();
+      document.getElementById('qrbox').innerHTML = '';
+
       qr = new QRCodeStyling({
         width: 320,
         height: 320,
         data: text,
         dotsOptions: { color: color, type: dotstyle },
-        backgroundOptions: { color: bgcolor },
-        image: logo ? logo : undefined,
+        backgroundOptions: { color: bgOpt },
+        image: logoDataUrl || undefined,
         imageOptions: { crossOrigin: "anonymous", margin: 8 }
       });
-      document.getElementById('qrbox').innerHTML = '';
       qr.append(document.getElementById('qrbox'));
     }
     function downloadQR() {

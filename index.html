@@ -62,7 +62,7 @@
   </style>
 </head>
 <body>
-  <h1>QR không hết hạn | QR Generator miễn phí by Biệt Đội Tinh Nhuệ</h1>
+  <h1>TẠO QR MIỄN PHÍ - KHÔNG HẾT HẠN</h1>
   <label>Nội dung hoặc link muốn tạo QR:</label>
   <textarea id="qrinput" rows="2" placeholder="Nhập nội dung..."></textarea>
 
@@ -165,7 +165,7 @@
       const transparent = document.getElementById('transparentBG').checked;
       const dotstyle = document.getElementById('dotstyle').value;
       let bgOpt = transparent ? 'rgba(0,0,0,0)' : bgcolor;
-      if (!text) { alert('Vui lòng nhập nội dung!'); return; }
+      if (!text) { alert('Chưa nhập nội dung mà đòi tạo à con dzời!'); return; }
       document.getElementById('qrbox').innerHTML = '';
 
       qr = new QRCodeStyling({

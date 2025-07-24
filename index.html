@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Team QR Code Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 40px; max-width: 480px; margin: auto; background: #f5f7fa; }
+    h1 { text-align: center; color: #3056d3; }
+    input, textarea { width: 100%; padding: 10px; margin: 16px 0; border-radius: 6px; border: 1px solid #bbb;}
+    button { padding: 10px 24px; border: none; border-radius: 6px; background: #3056d3; color: white; font-size: 16px;}
+    .qr-box {text-align:center; margin: 24px 0;}
+    img { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0002;}
+  </style>
+</head>
+<body>
+  <h1>Team QR Code Generator</h1>
+  <label for="qrinput"><b>Nhập link hoặc văn bản muốn tạo QR:</b></label>
+  <textarea id="qrinput" rows="3" placeholder="Dán link hoặc nội dung..."></textarea>
+  <button onclick="genQR()">Generate QR</button>
+  <div class="qr-box" id="qrbox"></div>
+  <script>
+    function genQR() {
+      let text = document.getElementById('qrinput').value.trim();
+      if (!text) { alert('Vui lòng nhập nội dung hoặc link!'); return; }
+      let url = 'https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=' + encodeURIComponent(text);
+      document.getElementById('qrbox').innerHTML = `<div><img src="${url}" width="200"><br>
+        <a href="${url}" target="_blank" download="qr.png">Tải QR về máy</a></div>`;
+    }
+  </script>
+</body>
+</html>

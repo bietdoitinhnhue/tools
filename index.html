@@ -220,7 +220,7 @@
         dotsOptions: { color: color, type: dotstyle },
         backgroundOptions: { color: bgOpt },
         image: logoDataUrl || undefined,
-        imageOptions: { crossOrigin: "anonymous", margin: 8 }
+        imageOptions: { crossOrigin: "anonymous", margin: 8, imageSize: 0.14, }
       });
       qr.append(document.getElementById('qrbox'));
     }
@@ -241,7 +241,7 @@
         dotsOptions: { color: color, type: dotstyle },
         backgroundOptions: { color: bgOpt },
         image: logoDataUrl || undefined,
-        imageOptions: { crossOrigin: "anonymous", margin: 32 }
+        imageOptions: { crossOrigin: "anonymous", margin: 32, imageSize: 0.18, }
       });
       bigQR.download({ name: "qr-code", extension: "png" });
     }

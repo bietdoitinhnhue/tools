@@ -180,51 +180,24 @@
   <script>
     let qr = null;
     let logoDataUrl = null;
-    let previewLogo = null;
-
-    // Helper: Crop & resize logo to square, fit maxSize x maxSize, keep center
-    function cropLogoToSquare(base64, maxSize, cb) {
-      const img = new Image();
-      img.onload = function () {
-        let size = Math.min(img.width, img.height);
-        let sx = (img.width - size) / 2;
-        let sy = (img.height - size) / 2;
-        let canvas = document.createElement('canvas');
-        canvas.width = canvas.height = maxSize;
-        let ctx = canvas.getContext('2d');
-        ctx.fillStyle = "rgba(0,0,0,0)";
-        ctx.fillRect(0, 0, maxSize, maxSize);
-        ctx.drawImage(img, sx, sy, size, size, 0, 0, maxSize, maxSize);
-        cb(canvas.toDataURL("image/png"));
-      };
-      img.src = base64;
-    }
-
+    // Xử lý upload logo PNG nhỏ
     document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('transparentBG').addEventListener('change', function() {
         let bgcolor = document.getElementById('bgcolor');
         bgcolor.disabled = this.checked;
       });
-
       document.getElementById('logoUpload').addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file && file.type === "image/png") {
           const reader = new FileReader();
           reader.onload = function(event) {
             logoDataUrl = event.target.result;
-            // Crop logo preview thành 25x25 px
-            cropLogoToSquare(logoDataUrl, 25, function(cropped){
-              previewLogo = cropped;
-              document.getElementById('logoName').innerText = file.name;
-              genQR(); // render lại luôn để xem logo
-            });
+            document.getElementById('logoName').innerText = file.name;
           };
           reader.readAsDataURL(file);
         } else {
           logoDataUrl = null;
-          previewLogo = null;
           document.getElementById('logoName').innerText = "";
-          genQR();
         }
       });
     });
@@ -237,8 +210,8 @@
       const transparent = document.getElementById('transparentBG').checked;
       const dotstyle = document.getElementById('dotstyle').value;
       let bgOpt = transparent ? 'rgba(0,0,0,0)' : bgcolor;
+      if (!text) { alert('Chưa nhập nội dung kìa pé'); return; }
       document.getElementById('qrbox').innerHTML = '';
-      if (!text) return;
 
       qr = new QRCodeStyling({
         width: 320,
@@ -246,58 +219,32 @@
         data: text,
         dotsOptions: { color: color, type: dotstyle },
         backgroundOptions: { color: bgOpt },
-        image: previewLogo || undefined,
-        imageOptions: {
-          crossOrigin: "anonymous",
-          margin: 0,
-          hideBackgroundDots: true, // clear QR center cho logo
-          imageSize: 0.078 // 25/320, fit vùng trắng giữa QR
-        }
+        image: logoDataUrl || undefined,
+        imageOptions: { crossOrigin: "anonymous", margin: 8 }
       });
       qr.append(document.getElementById('qrbox'));
     }
 
-    // Download QR in ấn 4096x4096, logo đúng tỷ lệ
+    // Download QR in ấn 4096x4096
     function downloadQR() {
+      if (!qr) return;
       const text = document.getElementById('qrinput').value.trim();
       const color = document.getElementById('qrcolor').value;
       const bgcolor = document.getElementById('bgcolor').value;
       const transparent = document.getElementById('transparentBG').checked;
       const dotstyle = document.getElementById('dotstyle').value;
       let bgOpt = transparent ? 'rgba(0,0,0,0)' : bgcolor;
-      let cb = (logoFinal) => {
-        let bigQR = new QRCodeStyling({
-          width: 4096,
-          height: 4096,
-          data: text,
-          dotsOptions: { color: color, type: dotstyle },
-          backgroundOptions: { color: bgOpt },
-          image: logoFinal || undefined,
-          imageOptions: {
-            crossOrigin: "anonymous",
-            margin: 0,
-            hideBackgroundDots: true,
-            imageSize: 0.078 // 320/4096 ~ 25/320
-          }
-        });
-        bigQR.download({ name: "qr-code", extension: "png" });
-      };
-      if (logoDataUrl) {
-        cropLogoToSquare(logoDataUrl, 320, cb); // 320/4096 = 0.078 tỷ lệ QR chuẩn
-      } else {
-        cb();
-      }
+      let bigQR = new QRCodeStyling({
+        width: 4096,
+        height: 4096,
+        data: text,
+        dotsOptions: { color: color, type: dotstyle },
+        backgroundOptions: { color: bgOpt },
+        image: logoDataUrl || undefined,
+        imageOptions: { crossOrigin: "anonymous", margin: 32 }
+      });
+      bigQR.download({ name: "qr-code", extension: "png" });
     }
-
-    // Auto re-render QR khi thay đổi input
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('qrinput').addEventListener('input', genQR);
-      document.getElementById('qrcolor').addEventListener('input', genQR);
-      document.getElementById('bgcolor').addEventListener('input', genQR);
-      document.getElementById('transparentBG').addEventListener('input', genQR);
-      document.getElementById('dotstyle').addEventListener('input', genQR);
-    });
-
   </script>
 </body>
 </html>

@@ -160,9 +160,9 @@
     </ul>
     <b>Lưu ý:</b>
     <ul>
-      <li>👉 QR code này là <b>tĩnh</b>, miễn phí, không hết hạn.</li>
-      <li>👉 Bạn có thể dùng trên mọi thiết bị, in ấn thoải mái.</li>
-      <li>👉 Nếu cần hỗ trợ tư vấn <b>workflow n8n, Marketing, đào tạo AI</b>, vui lòng liên hệ Admin.</li>
+      <li>QR code này là <b>tĩnh</b>, miễn phí, không hết hạn.</li>
+      <li>Bạn có thể dùng trên mọi thiết bị, in ấn thoải mái.</li>
+      <li>Nếu cần hỗ trợ tư vấn <b>workflow n8n, Marketing, đào tạo AI</b>, vui lòng liên hệ Admin.</li>
     </ul>
   </div>
   <!-- Contact QR Footer -->
@@ -180,13 +180,13 @@
   <script>
     let qr = null;
     let logoDataUrl = null;
-    let previewLogo = null; // Cropped preview logo base64
+    let previewLogo = null;
 
-    // Helper: Crop logo to square, fit maxSize x maxSize, keep center
+    // Helper: Crop & resize logo to square, fit maxSize x maxSize, keep center
     function cropLogoToSquare(base64, maxSize, cb) {
       const img = new Image();
       img.onload = function () {
-        let size = Math.min(img.width, img.height, maxSize);
+        let size = Math.min(img.width, img.height);
         let sx = (img.width - size) / 2;
         let sy = (img.height - size) / 2;
         let canvas = document.createElement('canvas');
@@ -212,8 +212,8 @@
           const reader = new FileReader();
           reader.onload = function(event) {
             logoDataUrl = event.target.result;
-            // Crop logo preview thành 64x64 px
-            cropLogoToSquare(logoDataUrl, 64, function(cropped){
+            // Crop logo preview thành 25x25 px
+            cropLogoToSquare(logoDataUrl, 25, function(cropped){
               previewLogo = cropped;
               document.getElementById('logoName').innerText = file.name;
               genQR(); // render lại luôn để xem logo
@@ -240,7 +240,6 @@
       document.getElementById('qrbox').innerHTML = '';
       if (!text) return;
 
-      // Đặt logo (nếu có) và vùng trắng center cho preview
       qr = new QRCodeStyling({
         width: 320,
         height: 320,
@@ -250,14 +249,15 @@
         image: previewLogo || undefined,
         imageOptions: {
           crossOrigin: "anonymous",
-          margin: 0, // Không cần margin vì đã crop đúng
+          margin: 0,
           hideBackgroundDots: true, // clear QR center cho logo
+          imageSize: 0.078 // 25/320, fit vùng trắng giữa QR
         }
       });
       qr.append(document.getElementById('qrbox'));
     }
 
-    // Download QR in ấn 4096x4096
+    // Download QR in ấn 4096x4096, logo đúng tỷ lệ
     function downloadQR() {
       const text = document.getElementById('qrinput').value.trim();
       const color = document.getElementById('qrcolor').value;
@@ -276,19 +276,20 @@
           imageOptions: {
             crossOrigin: "anonymous",
             margin: 0,
-            hideBackgroundDots: true, // clear QR center cho logo
+            hideBackgroundDots: true,
+            imageSize: 0.078 // 320/4096 ~ 25/320
           }
         });
         bigQR.download({ name: "qr-code", extension: "png" });
       };
       if (logoDataUrl) {
-        cropLogoToSquare(logoDataUrl, 820, cb); // logo 820x820 cho center QR 4096x4096
+        cropLogoToSquare(logoDataUrl, 320, cb); // 320/4096 = 0.078 tỷ lệ QR chuẩn
       } else {
         cb();
       }
     }
 
-    // Tạo QR khi có thay đổi input
+    // Auto re-render QR khi thay đổi input
     document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('qrinput').addEventListener('input', genQR);
       document.getElementById('qrcolor').addEventListener('input', genQR);

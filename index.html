@@ -104,6 +104,35 @@
       body { padding: 12px; }
       .contact-footer img { max-width: 100%; }
     }
+    .donate-box.donate-fixed {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  margin: 0 auto 0 auto;
+  z-index: 9999;
+  box-shadow: 0 -4px 32px #3056d31c;
+  border-radius: 16px 16px 0 0;
+  max-width: 430px;
+  width: 98vw;
+  animation: slideUpDonate 0.7s cubic-bezier(.66,0,.16,1) 1;
+}
+@keyframes slideUpDonate {
+  0% { transform: translateY(110%); opacity: 0.3;}
+  100% { transform: translateY(0); opacity: 1;}
+}
+.donate-box .donate-close {
+  position: absolute;
+  right: 12px; top: 12px;
+  background: #f5f6fa;
+  border: none;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  font-size: 18px; color: #888;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #0001;
+  transition: background .12s;
+}
+.donate-box .donate-close:hover { background: #eceeff; color: #d33;}
+
   </style>
 </head>
 <body>

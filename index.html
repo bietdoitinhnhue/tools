@@ -337,81 +337,96 @@
   }
 }
     </style>
-    <!---Thông tin Donate-->
-    <!-- DONATE BOX HIỆN ĐẠI 2 QR SONG SONG -->
+    <!-- DONATE BOX: TEXT TRÊN, 2 QR DƯỚI + CHÚ THÍCH -->
 <style>
 .donate-box {
-  display: flex;
-  gap: 36px;
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 6px 36px #3056d31c;
-  padding: 28px 38px;
-  margin: 38px auto 20px auto;
-  max-width: 660px;
-  align-items: center;
+  padding: 28px 34px 20px 34px;
+  margin: 40px auto 20px auto;
+  max-width: 420px;
   font-family: 'Roboto', Arial, sans-serif;
+  text-align: center;
 }
-.donate-info {
-  flex: 1;
-  min-width: 210px;
-}
-.donate-info h3 {
-  font-size: 1.25rem;
+.donate-title {
+  font-size: 1.18rem;
+  font-weight: 700;
+  margin-bottom: 2px;
   color: #3056d3;
-  margin: 0 0 8px 0;
-  font-weight: bold;
   letter-spacing: 0.5px;
 }
-.donate-info ul {
-  margin: 0 0 10px 0;
-  padding: 0;
-  list-style: none;
-  font-size: 1rem;
-  color: #1a2450;
+.donate-title span {
+  color: #ffa700; font-weight: 900; font-size: 1.16em;
 }
-.donate-info ul li { margin-bottom: 6px; }
-.donate-info .donate-link {
+.donate-info {
+  margin-bottom: 16px;
+  font-size: 1.06em;
+  color: #1a2450;
+  font-weight: 500;
+}
+.donate-link {
   color: #229ed9;
   word-break: break-all;
   text-decoration: underline dotted;
   font-weight: 500;
-  font-size: 1.05em;
+  font-size: 1.03em;
 }
-
 .donate-qrs {
   display: flex;
-  flex-direction: row;
-  gap: 18px;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 10px;
 }
-.donate-qrs img {
-  width: 98px;
-  height: 98px;
+.donate-qr-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.donate-qr-col img {
+  width: 108px; height: 108px;
   border-radius: 16px;
-  border: 1.5px solid #f0f0f6;
-  box-shadow: 0 2px 12px #234e7e14;
+  border: 1.5px solid #e0e5ef;
+  box-shadow: 0 2px 12px #3056d315;
   object-fit: cover;
   background: #f8fafc;
 }
+.donate-qr-label {
+  font-size: 1em;
+  margin-top: 9px;
+  color: #3557b7;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
 
-@media (max-width: 700px) {
-  .donate-box { flex-direction: column; padding: 18px 6px; gap: 20px; }
-  .donate-qrs { gap: 12px; }
-  .donate-qrs img { width: 74px; height: 74px; }
+@media (max-width: 600px) {
+  .donate-box { padding: 16px 5px 10px 5px; }
+  .donate-qrs { gap: 10px; }
+  .donate-qr-col img { width: 74px; height: 74px;}
+  .donate-qr-label { font-size: 0.94em;}
 }
 </style>
 <div class="donate-box">
+  <div class="donate-title">
+    Ủng hộ phát triển <span>QR miễn phí</span>
+  </div>
   <div class="donate-info">
-    <h3>Ủng hộ phát triển <span style="color:#ffa700">QR miễn phí</span></h3>
-    <ul>
-      <li><b>Vietcombank:</b> <span style="color:#1a2450">99683333342</span></li>
-      <li><b>Momo:</b> <a class="donate-link" href="https://nhantien.momo.vn/0968333342" target="_blank">https://nhantien.momo.vn/0968333342</a></li>
-    </ul>
-    <div style="color:#6d7aac; font-size: 13px;">Hoặc quét QR dưới đây. Cảm ơn bạn rất nhiều!</div>
+    <div><b>Vietcombank:</b> 99683333342</div>
+    <div><b>Momo:</b> <a class="donate-link" href="https://nhantien.momo.vn/0968333342" target="_blank">https://nhantien.momo.vn/0968333342</a></div>
+    <div style="color:#6d7aac; font-size: 13px; margin-top:7px;">Hoặc quét QR dưới đây. Cảm ơn bạn rất nhiều!</div>
   </div>
   <div class="donate-qrs">
-    <img src="https://i.imgur.com/SzMzOZg.png" alt="QR Vietcombank" title="Vietcombank QR">
-    <img src="https://i.imgur.com/dvxR3m9.png" alt="QR Momo" title="Momo QR">
+    <div class="donate-qr-col">
+      <img src="https://raw.githubusercontent.com/bietdoitinhnhue/server-manager/refs/heads/main/Vietcoombank.jpg" alt="QR Vietcombank" title="QR Vietcombank">
+      <div class="donate-qr-label">Vietcombank</div>
+    </div>
+    <div class="donate-qr-col">
+      <img src="https://raw.githubusercontent.com/bietdoitinhnhue/server-manager/refs/heads/main/Momo.png" alt="QR Momo" title="QR Momo">
+      <div class="donate-qr-label">Momo</div>
+    </div>
+  </div>
+</div>
+
     <!-- Thay src = link ảnh QR thật của bạn -->
   </div>
 </div>

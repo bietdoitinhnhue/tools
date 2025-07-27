@@ -337,5 +337,83 @@
   }
 }
     </style>
+    <!---Thông tin Donate-->
+    <!-- DONATE BOX HIỆN ĐẠI 2 QR SONG SONG -->
+<style>
+.donate-box {
+  display: flex;
+  gap: 36px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 6px 36px #3056d31c;
+  padding: 28px 38px;
+  margin: 38px auto 20px auto;
+  max-width: 660px;
+  align-items: center;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+.donate-info {
+  flex: 1;
+  min-width: 210px;
+}
+.donate-info h3 {
+  font-size: 1.25rem;
+  color: #3056d3;
+  margin: 0 0 8px 0;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+.donate-info ul {
+  margin: 0 0 10px 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1rem;
+  color: #1a2450;
+}
+.donate-info ul li { margin-bottom: 6px; }
+.donate-info .donate-link {
+  color: #229ed9;
+  word-break: break-all;
+  text-decoration: underline dotted;
+  font-weight: 500;
+  font-size: 1.05em;
+}
+
+.donate-qrs {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+}
+.donate-qrs img {
+  width: 98px;
+  height: 98px;
+  border-radius: 16px;
+  border: 1.5px solid #f0f0f6;
+  box-shadow: 0 2px 12px #234e7e14;
+  object-fit: cover;
+  background: #f8fafc;
+}
+
+@media (max-width: 700px) {
+  .donate-box { flex-direction: column; padding: 18px 6px; gap: 20px; }
+  .donate-qrs { gap: 12px; }
+  .donate-qrs img { width: 74px; height: 74px; }
+}
+</style>
+<div class="donate-box">
+  <div class="donate-info">
+    <h3>Ủng hộ phát triển <span style="color:#ffa700">QR miễn phí</span></h3>
+    <ul>
+      <li><b>Vietcombank:</b> <span style="color:#1a2450">99683333342</span></li>
+      <li><b>Momo:</b> <a class="donate-link" href="https://nhantien.momo.vn/0968333342" target="_blank">https://nhantien.momo.vn/0968333342</a></li>
+    </ul>
+    <div style="color:#6d7aac; font-size: 13px;">Hoặc quét QR dưới đây. Cảm ơn bạn rất nhiều!</div>
+  </div>
+  <div class="donate-qrs">
+    <img src="https://i.imgur.com/SzMzOZg.png" alt="QR Vietcombank" title="Vietcombank QR">
+    <img src="https://i.imgur.com/dvxR3m9.png" alt="QR Momo" title="Momo QR">
+    <!-- Thay src = link ảnh QR thật của bạn -->
+  </div>
+</div>
 </body>
 </html>

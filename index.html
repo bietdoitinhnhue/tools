@@ -444,5 +444,21 @@
     <!-- Thay src = link ảnh QR thật của bạn -->
   </div>
 </div>
+  <script>
+    // Khi user kéo tới cuối trang, gắn class sticky-footer
+window.addEventListener('scroll', function() {
+  const donate = document.querySelector('.donate-box');
+  if (!donate) return;
+  const scrolledToBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2;
+  if (scrolledToBottom) {
+    donate.classList.add('sticky-footer');
+    // Nếu muốn dừng cuộn, có thể: document.body.style.overflow='hidden';
+  } else {
+    donate.classList.remove('sticky-footer');
+    document.body.style.overflow='';
+  }
+});
+
+  </script>
 </body>
 </html>

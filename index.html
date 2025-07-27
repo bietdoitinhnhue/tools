@@ -248,71 +248,74 @@
       bigQR.download({ name: "qr-code", extension: "png" });
     }
   </script>
- <!-- SOCIAL FOOTER NAVY -->
+ <!-- SOCIAL FOOTER ĐẸP HIỆN ĐẠI -->
 <style>
 .social-footer {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1000;
   display: flex;
   justify-content: center;
   gap: 32px;
   background: #1a2450;
-  padding: 18px 0 10px 0;
+  padding: 24px 0 14px 0;
   box-shadow: 0 -2px 24px #0002;
   border-top-left-radius: 22px;
   border-top-right-radius: 22px;
-  pointer-events: none;
+  margin-top: 54px;
 }
 .social-footer .social-btn {
-  width: 54px; height: 54px;
+  width: 56px; height: 56px;
   border-radius: 50%;
   background: #fff;
-  border: 2.5px solid #fff;
-  box-shadow: 0 2px 12px #3056d330;
+  border: 2px solid #fff;
+  box-shadow: 0 3px 16px #24427a22, 0 1.5px 0.5px #fff3 inset;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 27px;
-  color: #3056d3;
-  transition: all 0.18s;
+  font-size: 29px;
+  transition: all 0.17s cubic-bezier(.62,.08,.2,1.03);
   cursor: pointer;
-  pointer-events: all;
-  margin: 0 2px;
+  position: relative;
+  overflow: hidden;
 }
-.social-footer .social-btn:hover { 
-  background: #3056d3;
-  color: #fff;
-  border-color: #fff;
-  transform: translateY(-6px) scale(1.11);
+.social-footer .social-btn svg { width: 30px; height: 30px; }
+.social-footer .social-btn:not(:last-child) { margin-right: 2px; }
+.social-footer .social-btn.fb svg { color: #1877f3; }
+.social-footer .social-btn.tg svg { color: #229ed9; }
+.social-footer .social-btn.phone svg { color: #16c36c; }
+.social-footer .social-btn.mail svg { color: #eb5347; }
+
+.social-footer .social-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: 0 2px 16px 2px #1a2450a8;
+  opacity: 0.16;
+  z-index: 0;
 }
-.social-footer .fb { color: #1877f3; }
-.social-footer .tg { color: #229ed9; }
-.social-footer .phone { color: #0fa958; }
-.social-footer .mail { color: #ea4335; }
-.social-footer .social-btn.fb:hover { background: #1877f3; }
-.social-footer .social-btn.tg:hover { background: #229ed9; }
-.social-footer .social-btn.phone:hover { background: #0fa958; }
-.social-footer .social-btn.mail:hover { background: #ea4335; }
+.social-footer .social-btn:hover {
+  border-color: #3056d3;
+  background: linear-gradient(140deg, #1a2450 0%, #3855be 100%);
+  transform: translateY(-6px) scale(1.13);
+}
+.social-footer .social-btn:hover svg { color: #fff !important; }
 @media (max-width: 600px) {
-  .social-footer { gap: 14px; padding: 10px 0 4px 0;}
-  .social-footer .social-btn { width: 38px; height: 38px; font-size: 18px; }
+  .social-footer { gap: 13px; padding: 12px 0 6px 0;}
+  .social-footer .social-btn { width: 38px; height: 38px; font-size: 17px;}
+  .social-footer .social-btn svg { width: 20px; height: 20px;}
 }
 </style>
 <div class="social-footer">
   <a class="social-btn fb" href="https://facebook.com/drakenguyen.me" target="_blank" title="Facebook">
-    <svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M29 16A13 13 0 1 0 16 29V19h-3v-3h3v-2.5A4 4 0 0 1 20 9h3v3h-3a1 1 0 0 0-1 1V16h4l-1 3h-3v10A13 13 0 0 0 29 16z"/></svg>
+    <svg viewBox="0 0 32 32"><circle fill="#fff" cx="16" cy="16" r="16"/><path fill="currentColor" d="M22 16.11h-3.1v8.61h-3.73v-8.61h-1.86v-3.06h1.86v-1.57c0-2.36 1.11-3.6 3.5-3.6h2.22v3.09h-1.38c-.57 0-.69.27-.69.69v1.39h2.14l-.28 3.06z"/></svg>
   </a>
   <a class="social-btn tg" href="https://t.me/drakenguyen" target="_blank" title="Telegram">
-    <svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M16 29C8.268 29 2 22.732 2 15S8.268 1 16 1s14 6.268 14 14-6.268 14-14 14zm0-27C9.383 2 4 7.383 4 14s5.383 12 12 12 12-5.383 12-12S22.617 2 16 2zm6.062 10.035-3.19 11.221c-.242.848-.696 1.053-1.41.654l-3.914-2.883-1.888.684c-.208.08-.396.156-.619.156-.38 0-.658-.146-.784-.558l-1.226-3.904c-.176-.553.019-.823.491-.982l9.727-3.752c.474-.182.864.102.709.79zm-8.348 8.29.906-.328 3.282 2.415 1.167-4.08-5.355 2.176z"/></svg>
+    <svg viewBox="0 0 32 32"><circle fill="#fff" cx="16" cy="16" r="16"/><path fill="currentColor" d="M25.09 8.77l-3.12 14.72c-.24 1.06-.85 1.32-1.72.82l-4.75-3.5-2.3 2.21a1.2 1.2 0 0 1-.98.48l.35-4.97 9.02-8.18c.39-.35-.09-.55-.6-.2l-11.16 7.02-4.8-1.5c-1.04-.32-1.06-1.02.22-1.5l18.78-7.24c.87-.32 1.64.2 1.36 1.51z"/></svg>
   </a>
-  <a class="social-btn phone" href="tel:+84 968333342" title="Gọi 0968333342">
-    <svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M25.707 21.293a1 1 0 0 0-1.414 0l-3 3A1 1 0 0 1 20 25c-5.523 0-10-4.477-10-10 0-.265.105-.52.293-.707l3-3a1 1 0 0 0 0-1.414l-2-2a1 1 0 0 0-1.414 0l-3 3A5.978 5.978 0 0 0 4 15c0 6.627 5.373 12 12 12 1.302 0 2.564-.208 3.707-.586l3-3a1 1 0 0 0 0-1.414l-2-2z"/></svg>
+  <a class="social-btn phone" href="tel:0968333342" title="Gọi 0968 3333 42">
+    <svg viewBox="0 0 32 32"><circle fill="#fff" cx="16" cy="16" r="16"/><path fill="currentColor" d="M24.86 20.72l-2.47-1.1a1.58 1.58 0 0 0-1.85.37l-1.08 1.33a13.39 13.39 0 0 1-6.41-6.41l1.33-1.08a1.58 1.58 0 0 0 .37-1.85l-1.1-2.47a1.6 1.6 0 0 0-1.82-.97c-1.01.22-2.08 1.05-2.08 2.08 0 7.72 6.27 14 14 14 1.03 0 1.86-1.07 2.08-2.08a1.6 1.6 0 0 0-.97-1.82z"/></svg>
   </a>
   <a class="social-btn mail" href="mailto:drakenguyen.me@gmail.com" title="Gửi mail">
-    <svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M28 8v16H4V8h24zm-2 2H6v.535l10 7.342 10-7.342V10zm0 12v-7.465l-9.293 6.82a1 1 0 0 1-1.414 0L6 14.535V22h20z"/></svg>
+    <svg viewBox="0 0 32 32"><circle fill="#fff" cx="16" cy="16" r="16"/><path fill="currentColor" d="M25 9H7c-.6 0-1 .4-1 1v12c0 .6.4 1 1 1h18c.6 0 1-.4 1-1V10c0-.6-.4-1-1-1zm-1.7 2l-7.3 5.7L8.7 11h14.6zm1.7 10H7v-9.2l8.3 6.5c.1.1.3.1.4 0l8.3-6.5V21z"/></svg>
   </a>
 </div>
 </body>

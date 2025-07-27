@@ -104,27 +104,6 @@
       body { padding: 12px; }
       .contact-footer img { max-width: 100%; }
     }
-    .donate-qr-col img {
-  width: 108px;
-  height: 108px;
-  max-width: 100%;
-  max-height: 108px;
-  border-radius: 16px;
-  border: 1.5px solid #e0e5ef;
-  box-shadow: 0 2px 12px #3056d315;
-  object-fit: cover;
-  background: #f8fafc;
-  display: block;
-}
-@media (max-width: 600px) {
-  .donate-qr-col img {
-    width: 74px;
-    height: 74px;
-    max-width: 100%;
-    max-height: 74px;
-  }
-}
-
   </style>
 </head>
 <body>
@@ -379,7 +358,8 @@
     </div>
   </div>
 </div>
-<stye>.donate-box.donate-fixed {
+<style>
+  .donate-box.donate-fixed {
   position: fixed;
   left: 0; right: 0; bottom: 0;
   margin: 0 auto 0 auto;
@@ -407,8 +387,7 @@
   transition: background .12s;
 }
 .donate-box .donate-close:hover { background: #eceeff; color: #d33;}
-</stye>
-
+</style>
     <!-- Thay src = link ảnh QR thật của bạn -->
   </div>
 </div>

@@ -337,76 +337,8 @@
   }
 }
     </style>
-    <!-- DONATE BOX: TEXT TRÊN, 2 QR DƯỚI + CHÚ THÍCH -->
-<style>
-.donate-box {
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 6px 36px #3056d31c;
-  padding: 28px 34px 20px 34px;
-  margin: 40px auto 20px auto;
-  max-width: 420px;
-  font-family: 'Roboto', Arial, sans-serif;
-  text-align: center;
-}
-.donate-title {
-  font-size: 1.18rem;
-  font-weight: 700;
-  margin-bottom: 2px;
-  color: #3056d3;
-  letter-spacing: 0.5px;
-}
-.donate-title span {
-  color: #ffa700; font-weight: 900; font-size: 1.16em;
-}
-.donate-info {
-  margin-bottom: 16px;
-  font-size: 1.06em;
-  color: #1a2450;
-  font-weight: 500;
-}
-.donate-link {
-  color: #229ed9;
-  word-break: break-all;
-  text-decoration: underline dotted;
-  font-weight: 500;
-  font-size: 1.03em;
-}
-.donate-qrs {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 10px;
-}
-.donate-qr-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.donate-qr-col img {
-  width: 108px; height: 108px;
-  border-radius: 16px;
-  border: 1.5px solid #e0e5ef;
-  box-shadow: 0 2px 12px #3056d315;
-  object-fit: cover;
-  background: #f8fafc;
-}
-.donate-qr-label {
-  font-size: 1em;
-  margin-top: 9px;
-  color: #3557b7;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-}
-
-@media (max-width: 600px) {
-  .donate-box { padding: 16px 5px 10px 5px; }
-  .donate-qrs { gap: 10px; }
-  .donate-qr-col img { width: 74px; height: 74px;}
-  .donate-qr-label { font-size: 0.94em;}
-}
-</style>
-<div class="donate-box">
+    <div class="donate-box donate-fixed" id="donateFooter">
+  <button class="donate-close" onclick="document.getElementById('donateFooter').style.display='none'">&times;</button>
   <div class="donate-title">
     MỜI CÀ PHÊ MÌNH <span>TẠI ĐÂY</span>
   </div>
@@ -426,6 +358,35 @@
     </div>
   </div>
 </div>
+<stye>.donate-box.donate-fixed {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  margin: 0 auto 0 auto;
+  z-index: 9999;
+  box-shadow: 0 -4px 32px #3056d31c;
+  border-radius: 16px 16px 0 0;
+  max-width: 430px;
+  width: 98vw;
+  animation: slideUpDonate 0.7s cubic-bezier(.66,0,.16,1) 1;
+}
+@keyframes slideUpDonate {
+  0% { transform: translateY(110%); opacity: 0.3;}
+  100% { transform: translateY(0); opacity: 1;}
+}
+.donate-box .donate-close {
+  position: absolute;
+  right: 12px; top: 12px;
+  background: #f5f6fa;
+  border: none;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  font-size: 18px; color: #888;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #0001;
+  transition: background .12s;
+}
+.donate-box .donate-close:hover { background: #eceeff; color: #d33;}
+</stye>
 
     <!-- Thay src = link ảnh QR thật của bạn -->
   </div>

@@ -241,7 +241,7 @@
 <body>
 
   <header class="page-header">
-    <h1>Tạo QR Code của bạn</h1>
+    <h1>Ai rồi cũng phải… tạo QR</h1>
   </header>
   
   <main>
@@ -250,13 +250,13 @@
       <div class="card">
           <h2 class="card-title">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="m19 19-7-7 7-7"/></svg>
-              Hướng dẫn nhanh
+              HƯỚNG DẪN NHANH
           </h2>
           <ul class="guide-list">
-              <li>Nhập <b>Nội dung</b> hoặc <b>Link</b> bạn muốn tạo mã QR.</li>
-              <li>Tùy chỉnh <b>màu sắc, kiểu dáng</b> và thêm <b>logo (nếu có)</b>.</li>
-              <li>Bấm <b>Tạo QR</b> để xem trước kết quả ngay lập tức.</li>
-              <li>Bấm <b>Tải QR về máy</b> để lưu file PNG chất lượng cao.</li>
+              <li>Nhập <b>Nội dung</b> hoặc thùy <b>Link </b>cần “quét”, tuỳ tâm</li>
+              <li>Thích<b> màu mè, thêm logo</b> (nếu có)<b> Chỉnh ngay bên dưới! </b>.</li>
+              <li>Bấm <b>Tạo QR</b> là thấy kết quả xịn liền.</li>
+              <li>Ổn áp thì <b>Tải QR về máy</b> PNG xịn sò luôn nha!</li>
           </ul>
       </div>
       
@@ -266,7 +266,7 @@
           Trình tạo QR Code
         </h2>
 
-        <label for="qrinput">Nhập nội dung hoặc link mà bạn muốn hiển thị</label>
+        <label for="qrinput">Link đâu rồi? Nội dung đâu rồi? Nhập vào đi chớ!</label>
         <textarea id="qrinput" rows="2" placeholder="https://drakenguyen.me"></textarea>
 
         <div class="options-grid">
@@ -317,7 +317,7 @@
         <div class="notice-block">
           <h3 class="card-title">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-              Lưu ý quan trọng
+              DỪNG LẠI 3 GIÂY ĐỌC CÁI NÀY ĐI NÍ!
           </h3>
           <ul>
               <li>QR code này là <b>tĩnh</b>, miễn phí và không hết hạn.</li>
@@ -330,7 +330,7 @@
       
       <div class="card contact-card">
           <a href="https://facebook.com/drakenguyen.me" target="_blank" class="contact-button">
-              LIÊN HỆ NẾU CẦN HỖ TRỢ 👇
+              HELP ME, BRO! 👇
           </a>
           <div class="social-icons">
               <a class="fb" href="https://m.me/drakenguyen.me" target="_blank" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></a>
@@ -343,7 +343,7 @@
       <div class="card">
           <h2 class="card-title">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 19.5c3.33-2 5-5.5 5-9.5A7 7 0 0 0 5.24 6"/><path d="M14 14v6"/><path d="M10 14v6"/><path d="M12 20h.01"/><path d="M12 14h.01"/><path d="M12 11h.01"/><path d="M12 8h.01"/><path d="M16 2.5c2.34 2.34 2.34 6.16 0 8.5L12.5 14.5h-1L8 11c-2.34-2.34-2.34-6.16 0-8.5C9.57.93 14.43.93 16 2.5Z"/></svg>
-              Mời tác giả ly cà phê
+              Nếu công cụ này “ổn áp”, cà phê là cách cảm ơn cực “mlem”!
           </h2>
           <div class="donate-qrs">
               <div class="donate-qr-col">
@@ -384,7 +384,7 @@
 
     function genQR() {
       const text = document.getElementById('qrinput').value.trim();
-      if (!text) { alert('Vui lòng nhập nội dung để tạo QR!'); return; }
+      if (!text) { alert('Link đâu mà đòi hóa QR, tỉnh táo lên nào!'); return; }
 
       const color = document.getElementById('qrcolor').value;
       const bgcolor = document.getElementById('bgcolor').value;
